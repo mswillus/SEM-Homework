@@ -1,0 +1,318 @@
+%%%%%%%%%%%% Attribution %%%%%%%%%%%%
+% This template was created by 
+% Chuck F. Rocca at WCSU and may be
+% copied and used freely for 
+% non-commercial purposes.
+% 10-17-2021
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%% Start Document Header %%%%%%%
+% In creating a new document
+% copy and paste the header 
+% as is.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+
+%%%% Header Information %%%%
+    \input{header}
+
+%%%% Document Information %%%%
+    \title{SEM - Homework - Git}
+    \date{TI3115TU - 24/25}
+
+%%%%%%% End Document Header %%%%%%%
+
+
+%%%% Begin Document %%%%
+% note that the document starts with
+% \begin{document} and ends with
+% \end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%% Format Running Header %%%%%
+\markboth{}{\thetitle}
+
+%%%% Insert the Title Information %%%
+\maketitle
+
+
+%%%% General Description of the Document %%%%
+\begin{abstract}
+    This homework is an invitation for you to make your first
+    steps with git.
+    In Lecture 2 on git we will dive into more advanced git features.
+    Understanding the fundamentals
+    will help you
+    to make most out of the second lecture on git.
+    Being familiar with the fundamentals of git
+    will also speed up your work in the project assignment.
+    In other words:
+    This is not a mandatory exercise but one hour invested
+    into this homework will go a long way.
+    If you have questions,
+    please send me an email (m.swillus@tudelft.nl)
+    and i'll see what I can do.
+\end{abstract}
+
+%%%% Introduction to the General Template %%%%
+\section{Getting started}
+In this excercise we will work with
+the repository that I modified during the lecture.
+\href{https://gitlab.tudelft.nl/mswillus/sem-sandbox/}{
+You can find it on TU-Delfts GitLab server: gitlab.tudelft.nl/mswillus/sem-sandbox}.
+I assume that you are using an IDE like vscode or pycharm.
+If you do want to follow along with terminal commands,
+you can use the terminal feature of your IDE.
+In vscode you can find the terminal option somewhere in the menu, usually under `view'.
+If you don't want to use the terminal,
+you can always find corresponding buttons for each git command somewhere in the user interface.
+If in doubt, check out your IDE's documentation
+but be sure to make youself familiar with your IDE's git features.
+You need to be able to rely on them.
+
+\subsection{Authentication}
+To clone a repository we use the \texttt{git clone <URL>} command.
+You can find the URL on the GitLab page mentioned above.
+Very often you don't need to be authenticated to clone a repository.
+However, once you want to upload your changes, you need to authenticate
+against the server.
+The easiest way to do this is using the \texttt{ssh} protocol.
+SSH needs a public and a private key-file to authenticate.
+You can display you public key-file using the following command:
+    \begin{minted}{bash}
+     -> % ssh-copy-id -fn localhost
+    =-=-=-=-=-=-=-=
+    Would have added the following key(s):
+    
+    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDnCVzeHssszlALplUDiiV/Cm0OfBdTH2KwKB+.....
+    =-=-=-=-=-=-=-=
+    -> % # OR ALTERNATIVELY IF THIS DOES NOT WORK
+    -> % cat ~/.ssh/id_rsa.pub
+    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDnCVzeHssszlALplUDiiV/Cm0OfBdTH2KwKB+.....
+    \end{minted}
+If no key is displayed,
+it is very likely that you do not have a key yet.
+In that case we generate a new key-file
+which is very easy and you only need to do it once
+for all projects you are going to use.
+To generate a key, use the \texttt{ssh-keygen} command in the terminal.
+Just hit return a couple of times to finish the process.
+    \begin{minted}{latex}
+    -> % ssh-keygen
+    Generating public/private ed25519 key pair.
+    Enter file in which to save the key (/Users/mark/.ssh/id_ed25519):
+    Enter passphrase (empty for no passphrase):
+    Enter same passphrase again:
+    Your identification has been saved in /Users/mark/.ssh/id_ed25519
+    Your public key has been saved in /Users/mark/.ssh/id_ed25519.pub
+    The key fingerprint is:
+    SHA256:s5l0EO3pETMvUsFM2k/clYbTOEaqV67u8/k94ICglOA mark@M1-Sendai
+    The key's randomart image is:
+    +--[ED25519 256]--+
+    |        .=o...+ o|
+    |   .     +O..B = |
+    |  . . . oo.B+.=  |
+    |   E o ...*o+    |
+    |    . . S+o+..   |
+    |     . . Bo...   |
+    |        +  .o .  |
+    |          .. ....|
+    |          .ooo..o|
+    +----[SHA256]-----+
+    \end{minted}
+
+You can now display your newly generated keys using the commands above.
+In order to register the public key you now need to go to TUDelft's Gitlab
+and add your public key in the settings (\href{https://gitlab.tudelft.nl/-/user_settings/ssh_keys}{gitlab.tudelft.nl/-/user\_settings/ssh\_keys}).
+You should now be able to use authenticated ssh to clone and upload repositories.
+
+\subsection{Cloning the repository}
+
+On the GitLab site you will find two links that
+you can use to clone the repository.
+Use the SSH link (\texttt{git@....}) to clone the repository.
+Feel free to use the IDE's clone feature to download the repository.
+
+
+\subsection{Getting help}
+As I mentioned in the lecture there are many ways to get help with git.
+Its tempting to use google for every hurdle that you encounter.
+I very often do the same and I think its totally fine.
+However, being familiar with \texttt{git help}
+and reading through documentation can really give you creative ideas
+that you will not get from google searches.
+
+\subsubsection{Navigating the documentation}
+Navigating the terminal based \texttt{git help}
+will teach you a skill that you can apply to almost every
+terminal tool that is out there,
+as it uses the same documentation engine as most open source tools (called \texttt{man-pages}).
+In fact, you can use both \texttt{man} and \texttt{git help} to access the documentation:
+
+    \begin{minted}{bash}
+     -> % git help commit
+     -> % # SAME AS
+     -> % man git-commit
+    \end{minted}
+
+Once you type one of the above help commands you enter a pager program which
+lists the content of the documentation.
+You navigate the pager using the arrow keys on your keyboard (not your mouse).
+If your keyboard does not have arrow keys you can use \texttt{jk} (down, up).
+To exit the pager you simply press \texttt{q} like quit.
+To search for a term in the pager you press \texttt{/} and then you type the search term.
+To flick through occurances of the term you are searching you use the \texttt{n} key
+to do a forward search (next search result)
+and a capital \texttt{N} for backwards search (last search result).
+There are many more keys you can use to quickly navigate the pager.
+Another one that I use a lot is the \texttt{g} key.
+Small \texttt{g} to go to the top of the document and
+captial \texttt{G} to go to the bottom.
+If you want to learn more about pagers,
+there is a \texttt{man-page} about that as well.
+Just type \texttt{man less} to see the user manual of the \texttt{less} pager
+that is used by default.
+
+
+\subsubsection{Useful help commands}
+Two commands that will come in handy if you are lost
+or if you want to discover more git features are the following:
+
+    \begin{minted}{bash}
+     -> % git help -a    # list of all git commands
+     -> % git help -g    # list of all git concept guides
+    \end{minted}
+
+Now that you are familiar with the git help,
+use the \texttt{git help <keyword>} command to open the glossary.
+Hint: Use \texttt{git help -g} to find the right keyword.
+In the glossary I want you to find and read the section
+about \textit{branch}, \texttt{working tree} and \texttt{HEAD}. 
+
+Can you already explain those concepts and how they work together?
+Answer the following questions about the git repository you cloned above.
+Use commands \texttt{git status} and \texttt{git log} to get the necessary info.
+Hint: \texttt{git log} opens a pager which you can navigate just like \texttt{git help}.
+\begin{itemize}
+    \item What is the default branch used in the repository?
+    \item Where is the HEAD pointing at?
+    \item How many working trees are accessible through in the repository?
+\end{itemize}
+
+
+
+
+\section{Adding a commit}
+
+You now have a complete copy of the source code on your computer
+including a record of every change that was made.
+The first thing we want to check is whether other students
+have uploaded changes in between the lecture and now.
+
+Use the commands \texttt{git log} and \texttt{git diff} to see if changes were made.
+If you are not sure where to begin,
+use the \texttt{git diff <commit-id>}
+command with the following commmit-id: \texttt{c505274}.
+
+
+\subsection{Staging changes}
+
+You can now edit files using your IDE.
+For example, you can add another line of text output or change the current output.
+Feel free to do whatever you want.
+Once you are happy with your changes
+you need to stage them.
+Use \texttt{git status} to get an overview of what is currently going on
+and how you can go forward.
+In the terminal you add changes to the staging environment with \texttt{git add <filename>} command.
+In your IDE you can usually find button with a + somewhere to stage changes.
+Use \texttt{git diff --staged} to review what exactly got staged.
+
+\textbf{Bonus:} A really neat way to add changes to the staging environment
+is the interactive mode of \texttt{git add}.
+You can use it with the \texttt{-p} option. Give it a try! (\texttt{git add -p}).
+Especially when you have big changes and you want to slice
+them into multiple commits, the interactive mode is extremely helpful!
+
+\subsection{Commiting your changes}
+Happy with the results? Then you should use \texttt{git commit} to commit your changes.
+If you are using the terminal to do this,
+the easiest way is to pass your commit message using the \texttt{-m} parameter.
+
+    \begin{minted}{bash}
+     -> % git commit -m "description of my change"
+    \end{minted}
+
+If you omit \texttt{'-m "message"'} git will open an editor for you. You can type your commit message, save and quit to finish the commit. In case this puts you into a weird kind of text editor
+which seems to have trapped you, you might have ended up in the VIM editor.
+Don't panic!
+The VIM editor works very similarly to a pager (explained above) except that you can also edit
+whats on the screen (press \texttt{i} to enter the edit mode and press \texttt{Esc} to exit the edit mode).
+The easiest way to get out of VIM again is by first hitting the Escape button on your keyboard a couple of times
+and then typing \texttt{ZZ} (capital letters!) or alternatively \texttt{:wq} to save and exit.
+If you want to learn more about vim,
+and if you really have nothing else to do,
+check out this fun game: \href{https://vim-adventures.com/}{vim-advantures.com}.
+
+\subsection{Reviewing you changes}
+Your changes have been added and you can see them now
+when you type \texttt{git log} in the terminal.
+Are you happy with the looks of your commit?
+Is your name set correctly? Is your email address correct?
+
+Note that in case you upload your changes to a public repository
+everyone who has access to it can use the \texttt{git log} feature to see your name
+and email address. This can be a privacy risk especially in case you were
+planning to contribute anonymously or under a pseudonym.
+Your name and email can be arbitrary because it will not be used
+for any authentication purposes.
+To mask your email address on a platform like GitHub,
+you can use a \texttt{noreply} email address which you can usually find in the email settings
+of your web profile.
+You can change the name and email address which is used by git,
+using the \texttt{git config} command.
+
+    \begin{minted}{bash}
+     -> % git config --list
+     init.defaultbranch=main
+     user.email=m.swillus@tudelft.nl
+     user.name=Mark
+     -> % git config user.name "Ahab"
+     -> % git config user.email "Ahab@pequod.biz"
+    \end{minted}
+
+There is also an easy way to change the authorship of your commits
+retrospectively (if you have not uploaded them yet!).
+To do this you can use the \texttt{git amend} feature.
+It will surely come in handy as you can also modify the changes of your commit
+with \texttt{amend}.
+Its worth taking a look at the \texttt{amend} documentation:
+\href{https://git-scm.com/book/en/v2/Git-Basics-Undoing-Things}{git-scm.com/book/en/v2/Git-Basics-Undoing-Things}.
+Changing the author of the last commit is easily done with the following command
+
+    \begin{minted}{bash}
+    -> % git commit --amend --reset-author
+    \end{minted}
+
+
+\subsection{Local and remote}
+Now that you have commited your changes,
+go back to the GitLab repository page.
+Compare the working tree that is displayed on the page with your local version.
+Can you find your commmit and your changes somewhere?
+
+If you feel very ambitious you can now use \texttt{git help} to find out
+what you need to do to \texttt{push} your changes to the remote repository.
+Alternatively you can attend the next lecture and we will have a look into this together.
+
+\section{Next steps}
+That's it for now. If you are hungry for more before we start the next lecture, please
+feel free to review the additional material that I have added to the brightspace course.
+Otherwise I see you next week where you are going to learn how to upload your changes
+to pages like GitHub or GitLab and how you can use advanced features of git to facilitate your
+collaborative work flows. If you have any questions,
+please write me an email or write them down and bring them to the next lecture!
+\end{document}
