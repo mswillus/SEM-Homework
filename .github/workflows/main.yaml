@@ -16,7 +16,7 @@ jobs:
         uses: xu-cheng/latex-action@master
         with:
           root_file: main.tex
-          args: "-shell-escape"
+          args: "-shell-escape -pdf -file-line-error -halt-on-error -interaction=nonstopmode"
       - name: upload
         uses: actions/upload-artifact@v4
         if: success()
